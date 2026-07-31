@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-diabetes
+  labels:
+    app: diabetes-prediction
+    name: backend-diabetes
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: backend-diabetes
+  template:
+    metadata:
+      labels:
+        name: backend-diabetes
+    spec:
+      containers:
+      - name: backend-diabetes
+        image: rishabhsaradigi/backend-diabetes:v3
+        ports:
+        - containerPort: 8000

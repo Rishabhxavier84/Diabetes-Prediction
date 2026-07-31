@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-diabetes
+  labels:
+    app: diabetes-prediction
+    name: frontend-diabetes
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: frontend-diabetes
+  template:
+    metadata:
+      labels:
+        name: frontend-diabetes
+    spec:
+      containers:
+      - name: frontend-diabetes
+        image: rishabhsaradigi/frontend-diabetes:v3
+        ports:
+        - containerPort: 5173
