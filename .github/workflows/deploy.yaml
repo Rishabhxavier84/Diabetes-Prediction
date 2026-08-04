@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     # strategy:
     #   matrix: 
     #     os: [ubuntu-latest, windows-latest, macos-latest]
@@ -18,15 +18,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: build backend image
         run: docker build ./backend/ -t rishabhsaradigi/backend-diabetes:latest
+
       - name: build frontend image
         run: docker build ./frontend/ -t rishabhsaradigi/frontend-diabetes:latest
+
       - name: docker login
         uses: docker/login-action@v4
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: push image to dockerhub 
         run: |
           docker push rishabhsaradigi/backend-diabetes:latest
@@ -41,15 +45,19 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v4
+
       - name: Login to Docker Hub
         uses: docker/login-action@v4
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
+
       - name: Build and push
         uses: docker/build-push-action@v7
         with:
