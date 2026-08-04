@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     # strategy:
     #   matrix: 
     #     os: [ubuntu-latest, windows-latest, macos-latest]
@@ -37,10 +37,11 @@ jobs:
           docker push rishabhsaradigi/frontend-diabetes:latest
 
   deploy2:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ubuntu-latest
+    # runs-on: ${{ matrix.os }}
+    # strategy:
+    #   matrix:
+    #     os: [ubuntu-latest, windows-latest, macos-latest]
     
     steps:
       - name: checkout code
