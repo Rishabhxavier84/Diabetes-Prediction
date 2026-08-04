@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: macOS-latest
+    runs-on: windows-latest
     # strategy:
     #   matrix: 
     #     os: [ubuntu-latest, windows-latest, macos-latest]
