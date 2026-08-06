@@ -1,0 +1,54 @@
+name: check the code and deploy the code to docker hub using community actions 
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+    
+      - name: verify checkout
+        run: echo "Code checked successfully on ${{ matrix.os }}"
+
+
+  deploy:
+    runs-on: ubuntu-latest
+  
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v4
+  
+    - name: Login to Docker Hub
+      uses: docker/login-action@v4
+      with:
+        username: ${{ vars.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+  
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v4
+  
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v4
+  
+    - name: Build and push backend image
+      uses: docker/build-push-action@v7
+      with:
+        context: ./backend
+        push: true
+        tags: rishabhsaradigi/backend-diabetes:latest
+  
+    - name: Build and push backend image
+      uses: docker/build-push-action@v7
+      with:
+        context: ./backend
+        push: true
+        tags: rishabhsaradigi/frontend-diabetes:latest
