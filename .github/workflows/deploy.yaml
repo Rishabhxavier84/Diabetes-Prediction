@@ -1,39 +1,21 @@
-name: check the code and deploy to docker hub
+name: check the code and verify
 
 on: 
   push: 
     branches:
       - main
-    paths:
-      - backend/Dockerfile
-      - frontend/Dockerfile
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    # strategy:
-    #   matrix: 
-    #     os: [ubuntu-latest, windows-latest, macos-latest]
-
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+  
     steps:
-      - name: Checkout code
+      - name: checkout code
         uses: actions/checkout@v4
-
-      - name: build backend image
-        run: docker build ./backend/ -t rishabhsaradigi/backend-diabetes:latest
-
-      - name: build frontend image
-        run: docker build ./frontend/ -t rishabhsaradigi/frontend-diabetes:latest
-
-      - name: docker login
-        uses: docker/login-action@v4
-        with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: push image to dockerhub 
-        run: |
-          docker push rishabhsaradigi/backend-diabetes:latest
-          docker push rishabhsaradigi/frontend-diabetes:latest
-
+    
+      - name: verify checkout
+        run: echo "Code checked successfully on ${{ matrix.os }} operating system."
 
