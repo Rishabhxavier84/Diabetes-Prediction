@@ -4,14 +4,22 @@ import { Result } from ".";
 
 const Form = () => {
   const [formData, setFormData] = useState({
-    Pregnancies: "",
-    Glucose: "",
-    BloodPressure: "",
-    BMI: "",
-    Age: "",
+    name: "",
+    pregnancies: "",
+    glucose: "",
+    blood_pressure: "",
+    bmi: "",
+    age: "",
   });
 
   const [result, setResult] = useState(null);
+
+  const handleNameChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: String(e.target.value),
+    });
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -41,11 +49,21 @@ const Form = () => {
           className=" bg-gray-200 p-10 px-30 my-5 rounded-4xl shadow-2xl border-[0.5px] border-gray-500"
         >
           <div className=" flex gap-5 p-3 m-3">
+            <p className="p-1 px-4 w-3xs">Name :</p>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              onChange={handleNameChange}
+              className="p-1 px-4 border-2 border-fuchsia-500 rounded-2xl bg-amber-50 text-black"
+            />
+          </div>
+          <div className=" flex gap-5 p-3 m-3">
             <p className="p-1 px-4 w-3xs">Pregnancies :</p>
             <input
               type="number"
-              name="Pregnancies"
-              id="Pregnancies"
+              name="pregnancies"
+              id="pregnancies"
               onChange={handleChange}
               className="p-1 px-4 border-2 border-fuchsia-500 rounded-2xl bg-amber-50 text-black"
             />
@@ -54,8 +72,9 @@ const Form = () => {
             <p className="p-1 px-4 w-3xs">Glucose :</p>
             <input
               type="number"
-              name="Glucose"
-              id="Glucose"
+              step="0.01"
+              name="glucose"
+              id="glucose"
               onChange={handleChange}
               className="p-1 px-4 border-2 border-fuchsia-500 rounded-2xl bg-amber-50 text-black"
             />
@@ -64,8 +83,9 @@ const Form = () => {
             <p className="p-1 px-4 w-3xs">Blood Pressure :</p>
             <input
               type="number"
-              name="BloodPressure"
-              id="BloodPressure"
+              step="0.01"
+              name="blood_pressure"
+              id="blood_pressure"
               onChange={handleChange}
               className="p-1 px-4 border-2 border-fuchsia-500 rounded-2xl bg-amber-50 text-black"
             />
@@ -74,8 +94,9 @@ const Form = () => {
             <p className="p-1 px-4 w-3xs">BMI :</p>
             <input
               type="number"
-              name="BMI"
-              id="BMI"
+              step="0.01"
+              name="bmi"
+              id="bmi"
               onChange={handleChange}
               className="p-1 px-4 border-2 border-fuchsia-500 rounded-2xl bg-amber-50 text-black"
             />
@@ -84,8 +105,8 @@ const Form = () => {
             <p className="p-1 px-4 w-3xs">Age :</p>
             <input
               type="number"
-              name="Age"
-              id="Age"
+              name="age"
+              id="age"
               onChange={handleChange}
               className="p-1 px-4 border-2 border-fuchsia-500 rounded-2xl bg-amber-50 text-black"
             />
