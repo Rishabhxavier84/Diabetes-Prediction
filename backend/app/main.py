@@ -7,15 +7,19 @@ import numpy as np
 import uvicorn
 from sqlalchemy.orm import Session
 
-from .schemas import DiabetesInput, Result
-from .database import Base, engine, get_db
-from .models import Prediction
+
+from app import DiabetesInput, Result, Base, engine, get_db, Prediction
 from .admin import router as admin_router
+from .users import router as user_router
+from auth import router as auth_router
+from services import get_current_user
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-app.include_router(admin_router)
+app.include_router(auth_router)
+app.include_router(admin_router)    
+app.include_router(user_router)
 
 origins = [
     "http://localhost:5173",
@@ -43,7 +47,7 @@ def read_root():
     return {"message": "Diabetes Prediction API is live"}
 
 @app.post("/predict", response_model=Result)
-def predict(data: DiabetesInput, db : Session = Depends(get_db)):
+def predict(data: DiabetesInput, current_user: str = Depends(get_current_user), db : Session = Depends(get_db)):
 
     input_data = np.array([[
         data.pregnancies, 
@@ -55,6 +59,8 @@ def predict(data: DiabetesInput, db : Session = Depends(get_db)):
 
     prediction_output = bool(model.predict(input_data)[0])
 
+    # print(current_user['email'])
+
     new_prediction = Prediction(
         name = data.name,
         pregnancies = data.pregnancies,
@@ -63,8 +69,9 @@ def predict(data: DiabetesInput, db : Session = Depends(get_db)):
         bmi = data.bmi,
         age = data.age,
         probability = None,
+        email = current_user['email'],
         prediction = prediction_output,
-        model_version = "v2",
+        model_version = "v3",
     )
 
     db.add(new_prediction)

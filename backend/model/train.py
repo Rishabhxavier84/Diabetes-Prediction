@@ -21,6 +21,10 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 model = RandomForestClassifier()
 model.fit(X_train, y_train)
 
+# Test model
+accuracy = model.score(X_test, y_test)
+print("✅ Model accuracy: ", accuracy*100)
+
 # Save
 joblib.dump(model, "diabetes_model.pkl")
 print("✅ Model saved as diabetes_model.pkl")

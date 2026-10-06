@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: frontend-service
 spec:
+  type: NodePort
   selector:
     name: frontend-diabetes
   ports:
   - port: 5173
     targetPort: 5173
-    # nodePort: 30003
-  # type: NodePort
-  type: ClusterIP
+    nodePort: 30003     # 30,000 to 32,767
+  # type: ClusterIP

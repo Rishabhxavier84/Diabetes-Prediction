@@ -20,20 +20,24 @@ class Prediction(Base):
     probability = Column('probability', Float, nullable=True)
     prediction = Column('prediction', Boolean, nullable=False)
 
+    # User
+    email = Column('email', String, nullable=False)
+
     # Metadata
     model_version = Column('model_version', String, nullable=False)
     created_at = Column('created_at', DateTime, default=datetime.now, nullable=False)
 
     def __repr__(self):
-        return f"<Prediction uid={self.uid} name={self.name!r}>"
+        return f"<Prediction uid={self.uid} name={self.name}>"
 
-    # def __init__(self, name, pregnancies, glucose, blood_pressure, bmi, age):
-    #     self.name = name
-    #     self.pregnancies = pregnancies
-    #     self.glucose = glucose
-    #     self.blood_pressure = blood_pressure
-    #     self.bmi = bmi
-    #     self.age = age
+class UserModel(Base):
+    __tablename__= "users"
 
-    # def __repr__(self):
-    #     return f"** name: {self.name} ** \npregnancies: {self.pregnancies}, \nglucose: {self.glucose}, \nblood_pressure: {self.blood_pressure}, \nbmi: {self.bmi}, \nage: {self.age},"
+    uid = Column(Integer, primary_key= True, autoincrement=True)
+    name = Column(String, nullable= False)
+    email = Column(String, nullable=False)
+    isAdmin = Column(Boolean, default=False)                   # TODO
+    hashed_pwd = Column(String, nullable= False)
+    refresh_token = Column(String, nullable= True)
+    created_at = Column(DateTime, default=datetime.now, nullable= False)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable= False)
