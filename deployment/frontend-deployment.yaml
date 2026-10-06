@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: frontend-diabetes
-        image: rishabhsaradigi/frontend-diabetes:v3
+        image: rishabhsaradigi/frontend-diabetes:latest
         ports:
         - containerPort: 5173

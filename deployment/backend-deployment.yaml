@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: backend-diabetes
-        image: rishabhsaradigi/backend-diabetes:v3
+        image: rishabhsaradigi/backend-diabetes:latest
         ports:
         - containerPort: 8000
