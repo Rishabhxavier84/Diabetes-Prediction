@@ -15,6 +15,6 @@ spec:
       containers:
         - name: frontend-diabetes
           image: rishabhsaradigi/frontend-diabetes:latest
-          imagePullPolicy: IfNotPresent
+          # imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
