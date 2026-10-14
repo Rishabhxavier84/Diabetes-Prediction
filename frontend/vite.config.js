@@ -12,7 +12,7 @@ export default defineConfig({
     allowedHosts: ["diabetes.local"],
     proxy: {
       "/api": {
-        target: "http://localhost:8000",
+        target: "http://backend-service:8000",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

@@ -13,3 +13,10 @@ uvicorn app.main:app --reload
 cd frontend
 npm run dev
 ```
+# Run k8s
+```bash
+kubectl apply -f frontend-deployment.yaml
+kubectl apply -f frontend-service.yaml
+kubectl apply -f backend-deployment.yaml
+kubectl apply -f backend-service.yaml
+```
